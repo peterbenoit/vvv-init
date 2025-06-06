@@ -34,11 +34,7 @@ cat <<EOF > index.html
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
   <body class="bg-gray-100 text-gray-800 min-h-screen flex items-center justify-center">
-    <div class="text-center space-y-4">
-      <h1 class="text-4xl font-bold text-indigo-600">Vercel + Vite + Vue</h1>
-      <p class="text-lg">A minimal fullstack setup with serverless API and Tailwind CSS.</p>
-      <div id="app"></div>
-    </div>
+    <div id="app"></div>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
