@@ -1,53 +1,151 @@
-# Vercel + Vite + Vue Setup
+# 🚀 Vercel + Vite + Vue Setup
 
-A fast-start Bash script to scaffold a modern Vue 3 project with Vite, Tailwind CSS, Pinia, ESLint, Prettier, and Vercel-compatible serverless API routing. Designed to work seamlessly on both local development and Vercel deployments.
+![Vue.js](https://img.shields.io/badge/Vue.js-3.4.0-4FC08D?style=flat-square&logo=vue.js)
+![Vite](https://img.shields.io/badge/Vite-5.0.0-646CFF?style=flat-square&logo=vite)
+![Vercel](https://img.shields.io/badge/Vercel-Ready-000000?style=flat-square&logo=vercel)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.3.0-38B2AC?style=flat-square&logo=tailwind-css)
 
-## Features
+A streamlined Bash script to scaffold a modern Vue 3 project with Vite, Tailwind CSS, serverless API endpoints, and a complete development setup. This template creates a production-ready project structure that works seamlessly in both local development and Vercel deployments.
 
-- Vue 3 + Vite frontend
-- Tailwind CSS + DaisyUI
-- Pinia state management
-- ESLint + Prettier
-- Serverless API via `/api/` endpoints
-- `.env` support for frontend (`VITE_`) and backend variables
-- Fully compatible with Vercel CLI and production deployment
-- Optional Git initialization and remote origin setup
-- Husky pre-commit hook with Prettier check
+<p align="center">
+  <img src="https://raw.githubusercontent.com/peterbenoit/vvv-init/main/screenshots/preview.png" alt="Project Preview" width="600">
+</p>
 
-## Usage
+## ✨ Features
+
+- **Frontend**: Vue 3 with Composition API and SFCs
+- **Build System**: Vite for lightning-fast development
+- **Styling**: Tailwind CSS with DaisyUI components
+- **State Management**: Pinia store integration
+- **API Integration**: Serverless API endpoints via Vercel
+- **Code Quality**: ESLint, Prettier, and Husky pre-commit hooks
+- **Testing**: Vitest and Vue Test Utils setup
+- **Optional**: Vue Router support for multi-page applications
+- **Deployment-ready**: Configured for instant Vercel deployment
+
+## 🛠️ Installation
+
+Clone this repository or download the `setup.sh` script:
 
 ```bash
+# Make the script executable
 chmod +x setup.sh
+
+# Run the script
 ./setup.sh
 ```
 
-You’ll be prompted to:
+## 👨‍💻 Usage
 
-- Clean the current directory (optional)
-- Initialize a Git repository (optional)
-- Set a remote Git origin (optional)
-- Install Husky with a Prettier pre-commit hook
-- Launch the dev server immediately
+During setup, you'll be prompted to:
 
-### Optional Flags
+1. **Clean directory**: Optionally remove all existing files (except setup.sh)
+2. **Add Vue Router**: Optionally include Vue Router for multi-page applications
+3. **Initialize Git**: Set up a Git repository with initial commit
+4. **Set remote origin**: Connect to a remote Git repository
+5. **Launch dev server**: Start the development server immediately
 
-- `--with-router` — Adds `vue-router` to the project
+### Directory Structure
 
-## Environment Variables
+```
+my-project/
+├── api/                # Serverless API endpoints
+│   └── hello.js        # Example API route
+├── public/             # Static assets
+│   └── favicon.svg
+├── src/
+│   ├── pages/          # (If using Vue Router)
+│   ├── App.vue         # Root component
+│   ├── main.js         # Application entry
+│   ├── router.js       # (If using Vue Router)
+│   └── style.css       # Global styles with Tailwind
+├── .env                # Environment variables
+├── .gitignore
+├── index.html          # HTML entry point
+├── package.json
+├── tailwind.config.js
+└── vercel.json         # Vercel configuration
+```
 
-- `VITE_PUBLIC_MESSAGE` — accessible from frontend
-- `PRIVATE_BACKEND_SECRET` — accessible from backend serverless functions
+## 🌐 Environment Variables
 
-## Development
+The project comes pre-configured with environment variables support:
 
-Run locally in full mode with:
+- **Frontend variables** (prefixed with `VITE_`):
+  ```
+  VITE_PUBLIC_MESSAGE=Hello from the frontend
+  VITE_API_BASE=/api
+  ```
+
+- **Backend variables** (private to API routes):
+  ```
+  PRIVATE_BACKEND_SECRET=shhh this is secret
+  ```
+
+## 💻 Development
+
+### Local Development
 
 ```bash
+# Standard Vite development
+npm run dev
+
+# Full Vercel emulation (including API routes)
 npm run vercel-dev
 ```
 
-This simulates Vercel’s environment, including serverless APIs.
+### Building for Production
 
-## License
+```bash
+npm run build
+```
+
+### Testing
+
+```bash
+# Run tests
+npm test
+```
+
+## 🚢 Deployment
+
+This project is configured for immediate deployment on Vercel:
+
+```bash
+# Install Vercel CLI if not installed
+npm i -g vercel
+
+# Deploy to Vercel
+vercel
+```
+
+## 🧩 Extending the Project
+
+### Adding Components
+
+Create reusable components in `src/components/`:
+
+```bash
+mkdir -p src/components
+touch src/components/Button.vue
+```
+
+### Adding API Routes
+
+Create new API endpoints in the `api/` directory:
+
+```bash
+touch api/users.js
+```
+
+## 📄 License
 
 MIT
+
+## 🙏 Acknowledgements
+
+- [Vue.js](https://vuejs.org/)
+- [Vite](https://vitejs.dev/)
+- [Vercel](https://vercel.com/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [DaisyUI](https://daisyui.com/)
