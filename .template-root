@@ -1,0 +1,3 @@
+# Marker file for setup template root
+# Prevents accidental execution of setup.sh in this directory
+# DO NOT COPY THIS FILE TO YOUR NEW PROJECT

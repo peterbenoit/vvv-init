@@ -1,24 +1,22 @@
 #!/bin/bash
 
-# Parse optional flags
-WITH_ROUTER=false
-CLEAN_FIRST=false
-for arg in "$@"; do
-  if [ "$arg" == "--with-router" ]; then
-    WITH_ROUTER=true
-  elif [ "$arg" == "--clean" ]; then
-    CLEAN_FIRST=true
-  fi
-done
+if [ -f ".template-root" ]; then
+  echo "❌ This script should not be run inside the template repository itself."
+  echo "🛑 Aborting to prevent accidental overwrite."
+  exit 1
+fi
 
-# Clean current directory if requested
-if $CLEAN_FIRST; then
+
+# Prompt to optionally clean the directory before setup
+echo "🧹 Do you want to clean the directory before setup? [Y/n]"
+read -r clean_confirm
+clean_confirm=${clean_confirm:-Y}
+if [[ "$clean_confirm" =~ ^[Yy]$ ]]; then
   echo "⚠️  This will delete everything in the current directory except setup.sh."
   read -p "Are you sure? [Y/n] " confirm
   confirm=${confirm:-Y}
   if [[ "$confirm" =~ ^[Yy]$ ]]; then
-    # bash -c 'shopt -s extglob && eval rm -rf !\(setup.sh\)'
-	bash -c 'shopt -s extglob dotglob && eval rm -rf !\(setup.sh\)'
+    bash -c 'shopt -s extglob dotglob && eval rm -rf !\(setup.sh\)'
     echo "🧹 Clean complete. Press Enter to continue..."
     read
   else
@@ -205,5 +203,39 @@ module.exports = {
 }
 EOF
 
-echo "✅ Project ready — launching with Vercel dev server..."
-npx vercel dev
+
+# Prompt to optionally initialize a Git repository
+echo "🔧 Do you want to initialize a Git repository in this project? [Y/n]"
+read -r git_confirm
+git_confirm=${git_confirm:-Y}
+if [[ "$git_confirm" =~ ^[Yy]$ ]]; then
+  git init
+  git add .
+  git commit -m "Initial project setup"
+  echo "✅ Git repository initialized."
+
+  # Prompt to set a remote Git origin
+  echo "🌐 Do you want to set a remote Git origin? [y/N]"
+  read -r origin_confirm
+  origin_confirm=${origin_confirm:-N}
+  if [[ "$origin_confirm" =~ ^[Yy]$ ]]; then
+    read -p "Enter the remote repository URL: " remote_url
+    git remote add origin "$remote_url"
+    echo "🔗 Remote origin set to $remote_url"
+  fi
+fi
+
+# Husky installation and pre-commit hook for Prettier
+echo "🐶 Setting up Husky pre-commit hook..."
+npx husky-init > /dev/null 2>&1
+npm install
+npx husky set .husky/pre-commit "npx prettier --check ."
+echo "✅ Husky pre-commit hook created (Prettier check)"
+
+echo "✅ Project ready."
+echo "🚀 Do you want to run the dev server now? [Y/n]"
+read -r dev_confirm
+dev_confirm=${dev_confirm:-Y}
+if [[ "$dev_confirm" =~ ^[Yy]$ ]]; then
+  npx vercel dev
+fi
