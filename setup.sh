@@ -203,6 +203,75 @@ module.exports = {
 }
 EOF
 
+# Prompt to optionally add Vue Router
+echo "🧭 Do you want to include vue-router for multipage support? [y/N]"
+read -r router_confirm
+router_confirm=${router_confirm:-N}
+if [[ "$router_confirm" =~ ^[Yy]$ ]]; then
+  npm install vue-router
+  echo "✅ vue-router installed."
+
+  # 1. Create src/router.js
+  cat <<EOR > src/router.js
+import { createRouter, createWebHistory } from 'vue-router'
+import Home from './pages/Home.vue'
+import About from './pages/About.vue'
+
+const routes = [
+  { path: '/', component: Home },
+  { path: '/about', component: About }
+]
+
+export default createRouter({
+  history: createWebHistory(),
+  routes
+})
+EOR
+
+  # 2. Create src/pages/Home.vue and About.vue
+  mkdir -p src/pages
+  cat <<EOH > src/pages/Home.vue
+<template>
+  <div class="text-center space-y-4">
+    <h2 class="text-2xl font-bold text-green-600">Home Page</h2>
+    <p>Welcome to the homepage!</p>
+  </div>
+</template>
+EOH
+
+  cat <<EOA > src/pages/About.vue
+<template>
+  <div class="text-center space-y-4">
+    <h2 class="text-2xl font-bold text-blue-600">About Page</h2>
+    <p>This is the about page.</p>
+  </div>
+</template>
+EOA
+
+  # 3. Update src/main.js to inject router
+  sed -i '' 's/createApp(App).mount/#router injected\
+import router from ".\/router"\
+createApp(App).use(router).mount/' src/main.js
+
+  # 4. Update src/App.vue with router layout
+  cat <<EOAPP > src/App.vue
+<template>
+  <div class="space-y-4 text-center">
+    <nav class="space-x-4">
+      <router-link to="/" class="text-indigo-600 hover:underline">Home</router-link>
+      <router-link to="/about" class="text-indigo-600 hover:underline">About</router-link>
+    </nav>
+    <router-view />
+  </div>
+</template>
+
+<script setup>
+onMounted(() => {
+  console.log('Frontend var:', import.meta.env.VITE_PUBLIC_MESSAGE)
+})
+</script>
+EOAPP
+fi
 
 # Prompt to optionally initialize a Git repository
 echo "🔧 Do you want to initialize a Git repository in this project? [Y/n]"
@@ -241,3 +310,4 @@ if [[ "$dev_confirm" =~ ^[Yy]$ ]]; then
 fi
 
 echo "🎉 Setup complete! Your Vercel + Vite + Vue project is ready."
+echo "📖 Check the README for more information on how to use this project."
