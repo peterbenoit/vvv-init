@@ -18,6 +18,7 @@ A streamlined Bash script to scaffold a modern Vue 3 project with Vite, Tailwind
 - **Styling**: Tailwind CSS with DaisyUI components
 - **State Management**: Pinia store integration
 - **API Integration**: Serverless API endpoints via Vercel
+- **SEO Support**: @vueuse/head for managing document head
 - **Code Quality**: ESLint, Prettier, and Husky pre-commit hooks
 - **Testing**: Vitest and Vue Test Utils setup
 - **Optional**: Vue Router support for multi-page applications
@@ -128,6 +129,54 @@ Create reusable components in `src/components/`:
 ```bash
 mkdir -p src/components
 touch src/components/Button.vue
+```
+
+### Adding Meta Tags and SEO
+
+The project includes [@vueuse/head](https://github.com/vueuse/head) for managing document head:
+
+```js
+import { useHead } from '@vueuse/head'
+
+useHead({
+  title: 'My Page Title',
+  meta: [
+    { name: 'description', content: 'Page description' },
+    { property: 'og:title', content: 'My Page Title' }
+  ],
+  link: [
+    { rel: 'canonical', href: 'https://example.com/page' }
+  ]
+})
+```
+
+### Working with Axios
+
+The project includes [Axios](https://axios-http.com/) for making HTTP requests:
+
+```js
+import axios from 'axios'
+
+// Basic GET request
+const fetchData = async () => {
+  try {
+    const response = await axios.get('https://api.example.com/data')
+    console.log(response.data)
+  } catch (error) {
+    console.error('Error fetching data:', error)
+  }
+}
+
+// POST request with data
+const submitData = async (data) => {
+  try {
+    const response = await axios.post('https://api.example.com/submit', data)
+    return response.data
+  } catch (error) {
+    console.error('Error submitting data:', error)
+    throw error
+  }
+}
 ```
 
 ### Adding API Routes
