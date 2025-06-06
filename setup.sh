@@ -262,8 +262,11 @@ EOR
   cat <<EOH > src/pages/Home.vue
 <template>
   <div class="text-center space-y-4">
-    <h2 class="text-2xl font-bold text-green-600">Home Page</h2>
-    <p>Welcome to the homepage!</p>
+    <div>
+	  <img src="/favicon.svg" alt="Logo" class="w-24 h-24 mx-auto mb-4">
+      <h1 class="text-4xl font-bold text-indigo-600">Vercel + Vite + Vue</h1>
+      <p class="text-lg text-gray-600">A minimal fullstack setup with serverless API and Tailwind CSS.</p>
+    </div>
     <button
       @click="loadMessage"
       class="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition"
