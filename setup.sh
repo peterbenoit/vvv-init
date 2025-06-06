@@ -239,3 +239,5 @@ dev_confirm=${dev_confirm:-Y}
 if [[ "$dev_confirm" =~ ^[Yy]$ ]]; then
   npx vercel dev
 fi
+
+echo "🎉 Setup complete! Your Vercel + Vite + Vue project is ready."
