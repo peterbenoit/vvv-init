@@ -119,7 +119,7 @@ cat <<EOF > src/App.vue
 import { ref, onMounted } from 'vue'
 
 const message = ref('')
-const apiBase = import.meta.env.DEV ? 'http://localhost:3000/api' : '/api'
+const apiBase = import.meta.env.VITE_API_BASE
 
 onMounted(() => {
   console.log('Frontend var:', import.meta.env.VITE_PUBLIC_MESSAGE)
@@ -177,6 +177,7 @@ EOF
 # .env
 cat <<EOF > .env
 VITE_PUBLIC_MESSAGE=Hello from the frontend
+VITE_API_BASE=/api
 PRIVATE_BACKEND_SECRET=shhh this is secret
 EOF
 
@@ -231,8 +232,32 @@ EOR
   <div class="text-center space-y-4">
     <h2 class="text-2xl font-bold text-green-600">Home Page</h2>
     <p>Welcome to the homepage!</p>
+    <button
+      @click="loadMessage"
+      class="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition"
+    >
+      Call API
+    </button>
+    <p v-if="message" class="text-gray-700">{{ message }}</p>
   </div>
 </template>
+
+<script setup>
+import { ref, onMounted } from 'vue'
+
+const apiBase = import.meta.env.VITE_API_BASE
+const message = ref('')
+
+onMounted(() => {
+  console.log('Frontend var:', import.meta.env.VITE_PUBLIC_MESSAGE)
+})
+
+async function loadMessage() {
+  const res = await fetch(\`\${apiBase}/hello\`)
+  const data = await res.json()
+  message.value = data.message
+}
+</script>
 EOH
 
   cat <<EOA > src/pages/About.vue
