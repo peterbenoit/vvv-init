@@ -6,7 +6,6 @@ if [ -f ".template-root" ]; then
   exit 1
 fi
 
-
 # Prompt to optionally clean the directory before setup
 echo "🧹 Do you want to clean the directory before setup? [Y/n]"
 read -r clean_confirm
@@ -85,6 +84,25 @@ cat <<EOF > package.json
 }
 EOF
 
+# public/
+mkdir -p public
+ # public/favicon.svg
+cat <<EOF > public/favicon.svg
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="256" height="256" viewBox="0 0 256 256" xml:space="preserve">
+<g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)">
+	<path d="M 56.739 5.685 c 11.837 -5.303 23.925 -7.582 31.412 -3.836 c 3.745 7.487 1.467 19.575 -3.836 31.412 L 56.739 5.685 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,82,73); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
+	<path d="M 73.128 52.003 l -0.313 12.825 c -0.031 1.26 -0.393 2.489 -1.05 3.564 L 61.049 85.919 c -1.525 2.494 -5.119 2.572 -6.751 0.147 L 45.107 72.41" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,82,73); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
+	<polygon points="17.59,44.89 15.23,56.24 24.5,65.5 33.76,74.77 45.11,72.41 " style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,82,73); fill-rule: nonzero; opacity: 1;" transform="  matrix(1 0 0 1 0 0) "/>
+	<path d="M 37.967 16.843 l -12.825 0.313 c -1.26 0.031 -2.489 0.393 -3.564 1.05 L 4.052 28.922 c -2.494 1.525 -2.572 5.119 -0.147 6.751 l 13.656 9.191" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,82,73); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
+	<path d="M 45.107 72.41 L 17.59 44.893 c 0.231 -0.955 0.511 -1.914 0.875 -2.875 c 2.509 -6.627 6.739 -13.243 12.558 -19.061 C 37.703 16.276 47.141 9.991 56.743 5.69 L 84.31 33.257 c -4.301 9.603 -10.587 19.04 -17.267 25.721 c -5.818 5.818 -12.435 10.049 -19.061 12.558 C 47.021 71.899 46.062 72.179 45.107 72.41 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(249,249,249); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
+	<circle cx="53.924" cy="36.074" r="11.204" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(123,216,232); fill-rule: nonzero; opacity: 1;" transform="  matrix(1 0 0 1 0 0) "/>
+	<path d="M 2 90 c -0.512 0 -1.024 -0.195 -1.414 -0.586 c -0.781 -0.781 -0.781 -2.047 0 -2.828 l 17.709 -17.709 c 0.78 -0.781 2.048 -0.781 2.828 0 c 0.781 0.781 0.781 2.047 0 2.828 L 3.414 89.414 C 3.024 89.805 2.512 90 2 90 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,221,120); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
+	<path d="M 2.84 77.48 c -0.512 0 -1.023 -0.195 -1.414 -0.586 c -0.781 -0.781 -0.781 -2.047 0 -2.828 l 11.03 -11.029 c 0.78 -0.781 2.047 -0.781 2.828 0 c 0.781 0.781 0.781 2.047 0 2.828 L 4.254 76.895 C 3.864 77.285 3.352 77.48 2.84 77.48 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,221,120); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
+	<path d="M 14.52 89.16 c -0.512 0 -1.024 -0.195 -1.414 -0.586 c -0.781 -0.781 -0.781 -2.047 0 -2.828 l 11.029 -11.029 c 0.78 -0.781 2.048 -0.781 2.828 0 c 0.781 0.781 0.781 2.047 0 2.828 L 15.934 88.574 C 15.543 88.965 15.031 89.16 14.52 89.16 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,221,120); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
+</g>
+</svg>
+EOF
+
 # src/main.js
 mkdir -p src
 cat <<EOF > src/main.js
@@ -105,14 +123,27 @@ EOF
 # src/App.vue
 cat <<EOF > src/App.vue
 <template>
+  <div class="text-center space-y-6">
+    <div>
+	  <img src="/favicon.svg" alt="Logo" class="w-24 h-24 mx-auto mb-4">
+      <h1 class="text-4xl font-bold text-indigo-600">Vercel + Vite + Vue</h1>
+      <p class="text-lg text-gray-600">A minimal fullstack setup with serverless API and Tailwind CSS.</p>
+    </div>
+    <div class="space-y-4">
+      <button
+        @click="loadMessage"
+        class="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition"
+      >
+        Call API
+      </button>
+      <p v-if="message" class="text-gray-700">{{ message }}</p>
+    </div>
 	<div class="space-y-4">
-		<button
-		@click="loadMessage"
-		class="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition"
-		>
-		Call API
-		</button>
-		<p v-if="message" class="text-gray-700">{{ message }}</p>
+		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="inline-block mr-1 text-gray-800"><path fill="currentColor" d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5c.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34c-.46-1.16-1.11-1.47-1.11-1.47c-.91-.62.07-.6.07-.6c1 .07 1.53 1.03 1.53 1.03c.87 1.52 2.34 1.07 2.91.83c.09-.65.35-1.09.63-1.34c-2.22-.25-4.55-1.11-4.55-4.92c0-1.11.38-2 1.03-2.71c-.1-.25-.45-1.29.1-2.64c0 0 .84-.27 2.75 1.02c.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02c.55 1.35.2 2.39.1 2.64c.65.71 1.03 1.6 1.03 2.71c0 3.82-2.34 4.66-4.57 4.91c.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"/></svg>
+		<a href="https://github.com/peterbenoit/vvv-init" target="_blank" class="text-indigo-600 hover:underline text-sm">
+			GitHub
+		</a>
+	</div>
   </div>
 </template>
 
@@ -333,21 +364,3 @@ fi
 
 echo "🎉 Setup complete! Your Vercel + Vite + Vue project is ready."
 echo "📖 Check the README for more information on how to use this project."
-
-# public/favicon.svg
-mkdir -p public
-cat <<EOF > public/favicon.svg
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="256" height="256" viewBox="0 0 256 256" xml:space="preserve">
-<g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)">
-	<path d="M 56.739 5.685 c 11.837 -5.303 23.925 -7.582 31.412 -3.836 c 3.745 7.487 1.467 19.575 -3.836 31.412 L 56.739 5.685 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,82,73); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
-	<path d="M 73.128 52.003 l -0.313 12.825 c -0.031 1.26 -0.393 2.489 -1.05 3.564 L 61.049 85.919 c -1.525 2.494 -5.119 2.572 -6.751 0.147 L 45.107 72.41" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,82,73); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
-	<polygon points="17.59,44.89 15.23,56.24 24.5,65.5 33.76,74.77 45.11,72.41 " style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,82,73); fill-rule: nonzero; opacity: 1;" transform="  matrix(1 0 0 1 0 0) "/>
-	<path d="M 37.967 16.843 l -12.825 0.313 c -1.26 0.031 -2.489 0.393 -3.564 1.05 L 4.052 28.922 c -2.494 1.525 -2.572 5.119 -0.147 6.751 l 13.656 9.191" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,82,73); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
-	<path d="M 45.107 72.41 L 17.59 44.893 c 0.231 -0.955 0.511 -1.914 0.875 -2.875 c 2.509 -6.627 6.739 -13.243 12.558 -19.061 C 37.703 16.276 47.141 9.991 56.743 5.69 L 84.31 33.257 c -4.301 9.603 -10.587 19.04 -17.267 25.721 c -5.818 5.818 -12.435 10.049 -19.061 12.558 C 47.021 71.899 46.062 72.179 45.107 72.41 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(249,249,249); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
-	<circle cx="53.924" cy="36.074" r="11.204" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(123,216,232); fill-rule: nonzero; opacity: 1;" transform="  matrix(1 0 0 1 0 0) "/>
-	<path d="M 2 90 c -0.512 0 -1.024 -0.195 -1.414 -0.586 c -0.781 -0.781 -0.781 -2.047 0 -2.828 l 17.709 -17.709 c 0.78 -0.781 2.048 -0.781 2.828 0 c 0.781 0.781 0.781 2.047 0 2.828 L 3.414 89.414 C 3.024 89.805 2.512 90 2 90 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,221,120); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
-	<path d="M 2.84 77.48 c -0.512 0 -1.023 -0.195 -1.414 -0.586 c -0.781 -0.781 -0.781 -2.047 0 -2.828 l 11.03 -11.029 c 0.78 -0.781 2.047 -0.781 2.828 0 c 0.781 0.781 0.781 2.047 0 2.828 L 4.254 76.895 C 3.864 77.285 3.352 77.48 2.84 77.48 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,221,120); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
-	<path d="M 14.52 89.16 c -0.512 0 -1.024 -0.195 -1.414 -0.586 c -0.781 -0.781 -0.781 -2.047 0 -2.828 l 11.029 -11.029 c 0.78 -0.781 2.048 -0.781 2.828 0 c 0.781 0.781 0.781 2.047 0 2.828 L 15.934 88.574 C 15.543 88.965 15.031 89.16 14.52 89.16 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,221,120); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
-</g>
-</svg>
-EOF
