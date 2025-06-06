@@ -1,12 +1,21 @@
 #!/bin/bash
+#===============================================================================
+# Vercel + Vite + Vue Setup Script
+# Creates a modern Vue 3 project with Vite, Tailwind CSS, and serverless API
+#===============================================================================
 
+#-------------------------------------------------------------------------------
+# Safety check - prevent running inside the template repository
+#-------------------------------------------------------------------------------
 if [ -f ".template-root" ]; then
   echo "❌ This script should not be run inside the template repository itself."
   echo "🛑 Aborting to prevent accidental overwrite."
   exit 1
 fi
 
-# Prompt to optionally clean the directory before setup
+#-------------------------------------------------------------------------------
+# Clean directory (optional)
+#-------------------------------------------------------------------------------
 echo "🧹 Do you want to clean the directory before setup? [Y/n]"
 read -r clean_confirm
 clean_confirm=${clean_confirm:-Y}
@@ -23,7 +32,10 @@ if [[ "$clean_confirm" =~ ^[Yy]$ ]]; then
   fi
 fi
 
-# index.html
+#-------------------------------------------------------------------------------
+# Create main project files
+#-------------------------------------------------------------------------------
+# HTML entry point
 cat <<EOF > index.html
 <!DOCTYPE html>
 <html lang="en">
@@ -40,7 +52,7 @@ cat <<EOF > index.html
 </html>
 EOF
 
-# vite.config.js
+# Vite configuration
 cat <<EOF > vite.config.js
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
@@ -50,7 +62,7 @@ export default defineConfig({
 })
 EOF
 
-# package.json
+# Package configuration
 cat <<EOF > package.json
 {
   "name": "vercel-vite-vue-api",
@@ -84,9 +96,12 @@ cat <<EOF > package.json
 }
 EOF
 
-
-# public/favicon.svg
+#-------------------------------------------------------------------------------
+# Create public assets
+#-------------------------------------------------------------------------------
 mkdir -p public
+
+# Favicon SVG
 cat <<EOF > public/favicon.svg
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="256" height="256" viewBox="0 0 256 256" xml:space="preserve">
 <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)">
@@ -103,8 +118,12 @@ cat <<EOF > public/favicon.svg
 </svg>
 EOF
 
-# src/main.js
+#-------------------------------------------------------------------------------
+# Create source files
+#-------------------------------------------------------------------------------
 mkdir -p src
+
+# Main JavaScript entry point
 cat <<EOF > src/main.js
 import { createApp } from 'vue'
 import App from './App.vue'
@@ -113,19 +132,19 @@ import './style.css'
 createApp(App).mount('#app')
 EOF
 
-# src/style.css
+# Tailwind CSS configuration
 cat <<EOF > src/style.css
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 EOF
 
-# src/App.vue
+# Vue application component
 cat <<EOF > src/App.vue
 <template>
   <div class="text-center space-y-6">
     <div>
-	  <img src="/favicon.svg" alt="Logo" class="w-24 h-24 mx-auto mb-4">
+      <img src="/favicon.svg" alt="Logo" class="w-24 h-24 mx-auto mb-4">
       <h1 class="text-4xl font-bold text-indigo-600">Vercel + Vite + Vue</h1>
       <p class="text-lg text-gray-600">A minimal fullstack setup with serverless API and Tailwind CSS.</p>
     </div>
@@ -138,12 +157,12 @@ cat <<EOF > src/App.vue
       </button>
       <p v-if="message" class="text-gray-700">{{ message }}</p>
     </div>
-	<div class="space-y-4">
-		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="inline-block mr-1 text-gray-800"><path fill="currentColor" d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5c.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34c-.46-1.16-1.11-1.47-1.11-1.47c-.91-.62.07-.6.07-.6c1 .07 1.53 1.03 1.53 1.03c.87 1.52 2.34 1.07 2.91.83c.09-.65.35-1.09.63-1.34c-2.22-.25-4.55-1.11-4.55-4.92c0-1.11.38-2 1.03-2.71c-.1-.25-.45-1.29.1-2.64c0 0 .84-.27 2.75 1.02c.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02c.55 1.35.2 2.39.1 2.64c.65.71 1.03 1.6 1.03 2.71c0 3.82-2.34 4.66-4.57 4.91c.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"/></svg>
-		<a href="https://github.com/peterbenoit/vvv-init" target="_blank" class="text-indigo-600 hover:underline text-sm">
-			GitHub
-		</a>
-	</div>
+    <div class="space-y-4">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="inline-block mr-1 text-gray-800"><path fill="currentColor" d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5c.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34c-.46-1.16-1.11-1.47-1.11-1.47c-.91-.62.07-.6.07-.6c1 .07 1.53 1.03 1.53 1.03c.87 1.52 2.34 1.07 2.91.83c.09-.65.35-1.09.63-1.34c-2.22-.25-4.55-1.11-4.55-4.92c0-1.11.38-2 1.03-2.71c-.1-.25-.45-1.29.1-2.64c0 0 .84-.27 2.75 1.02c.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02c.55 1.35.2 2.39.1 2.64c.65.71 1.03 1.6 1.03 2.71c0 3.82-2.34 4.66-4.57 4.91c.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"/></svg>
+      <a href="https://github.com/peterbenoit/vvv-init" target="_blank" class="text-indigo-600 hover:underline text-sm">
+        GitHub
+      </a>
+    </div>
   </div>
 </template>
 
@@ -165,8 +184,12 @@ async function loadMessage() {
 </script>
 EOF
 
-# api/hello.js
+#-------------------------------------------------------------------------------
+# Create API endpoints
+#-------------------------------------------------------------------------------
 mkdir -p api
+
+# Example API endpoint
 cat <<EOF > api/hello.js
 import axios from 'axios'
 
@@ -188,7 +211,10 @@ export default async function handler(req, res) {
 }
 EOF
 
-# vercel.json
+#-------------------------------------------------------------------------------
+# Create configuration files
+#-------------------------------------------------------------------------------
+# Vercel configuration
 cat <<EOF > vercel.json
 {
   "rewrites": [
@@ -197,7 +223,7 @@ cat <<EOF > vercel.json
 }
 EOF
 
-# .gitignore
+# Git ignore
 cat <<EOF > .gitignore
 node_modules/
 dist/
@@ -206,22 +232,31 @@ dist/
 .vercel/
 EOF
 
-# .env
+# Environment variables
 cat <<EOF > .env
 VITE_PUBLIC_MESSAGE=Hello from the frontend
 VITE_API_BASE=/api
 PRIVATE_BACKEND_SECRET=shhh this is secret
 EOF
 
+#-------------------------------------------------------------------------------
+# Install dependencies
+#-------------------------------------------------------------------------------
+echo "📦 Installing dependencies..."
 
-# Install all dependencies
+# Install runtime dependencies
 npm install vue axios pinia daisyui
+
+# Install development dependencies
 npm install -D @vitejs/plugin-vue vite vercel \
   eslint eslint-plugin-vue prettier eslint-config-prettier eslint-plugin-prettier \
   vitest @vue/test-utils \
   tailwindcss postcss autoprefixer
+
+# Initialize Tailwind CSS
 npx tailwindcss init -p
 
+# Create Tailwind configuration
 cat <<EOF > tailwind.config.js
 module.exports = {
   content: ['./index.html', './src/**/*.{vue,js,ts}'],
@@ -232,7 +267,9 @@ module.exports = {
 }
 EOF
 
-# Prompt to optionally add Vue Router
+#-------------------------------------------------------------------------------
+# Optional: Add Vue Router
+#-------------------------------------------------------------------------------
 echo "🧭 Do you want to include vue-router for multipage support? [y/N]"
 read -r router_confirm
 router_confirm=${router_confirm:-N}
@@ -240,7 +277,7 @@ if [[ "$router_confirm" =~ ^[Yy]$ ]]; then
   npm install vue-router
   echo "✅ vue-router installed."
 
-  # 1. Create src/router.js
+  # Create router configuration
   cat <<EOR > src/router.js
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from './pages/Home.vue'
@@ -257,13 +294,15 @@ export default createRouter({
 })
 EOR
 
-  # 2. Create src/pages/Home.vue and About.vue
+  # Create page components
   mkdir -p src/pages
+
+  # Home page
   cat <<EOH > src/pages/Home.vue
 <template>
   <div class="text-center space-y-4">
     <div>
-	  <img src="/favicon.svg" alt="Logo" class="w-24 h-24 mx-auto mb-4">
+      <img src="/favicon.svg" alt="Logo" class="w-24 h-24 mx-auto mb-4">
       <h1 class="text-4xl font-bold text-indigo-600">Vercel + Vite + Vue</h1>
       <p class="text-lg text-gray-600">A minimal fullstack setup with serverless API and Tailwind CSS.</p>
     </div>
@@ -275,12 +314,12 @@ EOR
     </button>
     <p v-if="message" class="text-gray-700">{{ message }}</p>
   </div>
-	<div class="space-y-4">
-		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="inline-block mr-1 text-gray-800"><path fill="currentColor" d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5c.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34c-.46-1.16-1.11-1.47-1.11-1.47c-.91-.62.07-.6.07-.6c1 .07 1.53 1.03 1.53 1.03c.87 1.52 2.34 1.07 2.91.83c.09-.65.35-1.09.63-1.34c-2.22-.25-4.55-1.11-4.55-4.92c0-1.11.38-2 1.03-2.71c-.1-.25-.45-1.29.1-2.64c0 0 .84-.27 2.75 1.02c.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02c.55 1.35.2 2.39.1 2.64c.65.71 1.03 1.6 1.03 2.71c0 3.82-2.34 4.66-4.57 4.91c.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"/></svg>
-		<a href="https://github.com/peterbenoit/vvv-init" target="_blank" class="text-indigo-600 hover:underline text-sm">
-			GitHub
-		</a>
-	</div>
+  <div class="space-y-4">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="inline-block mr-1 text-gray-800"><path fill="currentColor" d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5c.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34c-.46-1.16-1.11-1.47-1.11-1.47c-.91-.62.07-.6.07-.6c1 .07 1.53 1.03 1.53 1.03c.87 1.52 2.34 1.07 2.91.83c.09-.65.35-1.09.63-1.34c-2.22-.25-4.55-1.11-4.55-4.92c0-1.11.38-2 1.03-2.71c-.1-.25-.45-1.29.1-2.64c0 0 .84-.27 2.75 1.02c.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02c.55 1.35.2 2.39.1 2.64c.65.71 1.03 1.6 1.03 2.71c0 3.82-2.34 4.66-4.57 4.91c.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"/></svg>
+    <a href="https://github.com/peterbenoit/vvv-init" target="_blank" class="text-indigo-600 hover:underline text-sm">
+      GitHub
+    </a>
+  </div>
 </template>
 
 <script setup>
@@ -301,6 +340,7 @@ async function loadMessage() {
 </script>
 EOH
 
+  # About page
   cat <<EOA > src/pages/About.vue
 <template>
   <div class="text-center space-y-4">
@@ -310,11 +350,11 @@ EOH
 </template>
 EOA
 
-  # 3. Update src/main.js to inject router
+  # Update main.js to include router
   sed -i '' 's|createApp(App).mount|import router from "./router"\
 createApp(App).use(router).mount|' src/main.js
 
-  # 4. Update src/App.vue with router layout
+  # Update App.vue to use router
   cat <<EOAPP > src/App.vue
 <template>
   <div class="space-y-4 text-center">
@@ -335,7 +375,9 @@ onMounted(() => {
 EOAPP
 fi
 
-# Prompt to optionally initialize a Git repository
+#-------------------------------------------------------------------------------
+# Optional: Initialize Git repository
+#-------------------------------------------------------------------------------
 echo "🔧 Do you want to initialize a Git repository in this project? [Y/n]"
 read -r git_confirm
 git_confirm=${git_confirm:-Y}
@@ -345,7 +387,7 @@ if [[ "$git_confirm" =~ ^[Yy]$ ]]; then
   git commit -m "Initial project setup"
   echo "✅ Git repository initialized."
 
-  # Prompt to set a remote Git origin
+  # Optional: Set remote Git origin
   echo "🌐 Do you want to set a remote Git origin? [y/N]"
   read -r origin_confirm
   origin_confirm=${origin_confirm:-N}
@@ -356,13 +398,18 @@ if [[ "$git_confirm" =~ ^[Yy]$ ]]; then
   fi
 fi
 
-# Husky installation and pre-commit hook for Prettier
+#-------------------------------------------------------------------------------
+# Set up Husky for Git hooks
+#-------------------------------------------------------------------------------
 echo "🐶 Setting up Husky pre-commit hook..."
 yes | npx husky-init
 npm install
 npx husky set .husky/pre-commit "npx prettier --check ."
 echo "✅ Husky pre-commit hook created (Prettier check)"
 
+#-------------------------------------------------------------------------------
+# Finish and start dev server
+#-------------------------------------------------------------------------------
 echo "✅ Project ready."
 echo "🚀 Do you want to run the dev server now? [Y/n]"
 read -r dev_confirm
