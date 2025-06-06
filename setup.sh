@@ -25,8 +25,9 @@ if [[ "$clean_confirm" =~ ^[Yy]$ ]]; then
   confirm=${confirm:-Y}
   if [[ "$confirm" =~ ^[Yy]$ ]]; then
     bash -c 'shopt -s extglob dotglob && eval rm -rf !\(setup.sh\)'
-    echo "🧹 Clean complete. Press Enter to continue..."
-    read
+    echo "✅ Clean complete."
+	# Wait a moment to ensure the directory is clean
+    sleep 1
   else
     echo "❌ Clean aborted."
   fi
