@@ -76,7 +76,8 @@ cat <<EOF > package.json
   "dependencies": {
     "vue": "^3.4.0",
     "axios": "^1.6.8",
-    "pinia": "^2.0.0"
+    "pinia": "^2.0.0",
+    "@vueuse/head": "^1.8.7"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.0",
@@ -129,8 +130,10 @@ cat <<EOF > src/main.js
 import { createApp } from 'vue'
 import App from './App.vue'
 import './style.css'
+import { createHead } from '@vueuse/head'
 
-createApp(App).mount('#app')
+const head = createHead()
+createApp(App).use(head).mount('#app')
 EOF
 
 # Tailwind CSS configuration
@@ -169,6 +172,15 @@ cat <<EOF > src/App.vue
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import { useHead } from '@vueuse/head'
+
+useHead({
+  title: 'Vercel + Vite + Vue',
+  meta: [
+    { name: 'description', content: 'Scaffold a modern Vue 3 project with Vite and Tailwind CSS, using a single script.' },
+    { name: 'keywords', content: 'Vue, Vite, Tailwind, Vercel, SPA, Bash' }
+  ]
+})
 
 const message = ref('')
 const apiBase = import.meta.env.VITE_API_BASE
@@ -246,7 +258,7 @@ EOF
 echo "📦 Installing dependencies..."
 
 # Install runtime dependencies
-npm install vue axios pinia daisyui
+npm install vue axios pinia daisyui @vueuse/head
 
 # Install development dependencies
 npm install -D @vitejs/plugin-vue vite vercel \
