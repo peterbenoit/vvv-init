@@ -249,9 +249,8 @@ EOH
 EOA
 
   # 3. Update src/main.js to inject router
-  sed -i '' 's/createApp(App).mount/#router injected\
-import router from ".\/router"\
-createApp(App).use(router).mount/' src/main.js
+  sed -i '' 's|createApp(App).mount|import router from "./router"\
+createApp(App).use(router).mount|' src/main.js
 
   # 4. Update src/App.vue with router layout
   cat <<EOAPP > src/App.vue
