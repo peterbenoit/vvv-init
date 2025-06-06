@@ -30,6 +30,7 @@ cat <<EOF > index.html
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>Vercel + Vite + Vue</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
@@ -332,3 +333,12 @@ fi
 
 echo "🎉 Setup complete! Your Vercel + Vite + Vue project is ready."
 echo "📖 Check the README for more information on how to use this project."
+
+# public/favicon.svg
+mkdir -p public
+cat <<EOF > public/favicon.svg
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <circle cx="50" cy="50" r="40" fill="#6366f1"/>
+  <text x="50%" y="55%" text-anchor="middle" font-size="50" fill="#fff" font-family="Arial" dy=".3em">V</text>
+</svg>
+EOF
