@@ -147,7 +147,7 @@ cat <<EOF > src/App.vue
     <div>
       <img src="/favicon.svg" alt="Logo" class="w-24 h-24 mx-auto mb-4">
       <h1 class="text-4xl font-bold text-indigo-600">Vercel + Vite + Vue</h1>
-      <p class="text-lg text-gray-600">A minimal fullstack setup with serverless API and Tailwind CSS.</p>
+      <p class="text-lg text-gray-600">A streamlined Bash script to scaffold a modern Vue 3 project with Vite, Tailwind CSS, serverless API endpoints, and a complete development setup. This template creates a production-ready project structure that works seamlessly in both local development and Vercel deployments.</p>
     </div>
     <div class="space-y-4">
       <button
@@ -305,7 +305,7 @@ EOR
     <div>
       <img src="/favicon.svg" alt="Logo" class="w-24 h-24 mx-auto mb-4">
       <h1 class="text-4xl font-bold text-indigo-600">Vercel + Vite + Vue</h1>
-      <p class="text-lg text-gray-600">A minimal fullstack setup with serverless API and Tailwind CSS.</p>
+      <p class="text-lg text-gray-600">A streamlined Bash script to scaffold a modern Vue 3 project with Vite, Tailwind CSS, serverless API endpoints, and a complete development setup. This template creates a production-ready project structure that works seamlessly in both local development and Vercel deployments.</p>
     </div>
     <button
       @click="loadMessage"
