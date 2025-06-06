@@ -261,6 +261,7 @@ createApp(App).use(router).mount|' src/main.js
 </template>
 
 <script setup>
+import { onMounted } from 'vue'
 onMounted(() => {
   console.log('Frontend var:', import.meta.env.VITE_PUBLIC_MESSAGE)
 })
