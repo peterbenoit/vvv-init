@@ -77,7 +77,7 @@ cat <<EOF > package.json
     "vue": "^3.4.0",
     "axios": "^1.6.8",
     "pinia": "^2.0.0",
-    "@vueuse/head": "^1.8.7"
+    "@unhead/vue": "^1.0.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.0",
@@ -130,10 +130,10 @@ cat <<EOF > src/main.js
 import { createApp } from 'vue'
 import App from './App.vue'
 import './style.css'
-import { createHead } from '@vueuse/head'
+import { createHead } from '@unhead/vue'
 
 const head = createHead()
-createApp(App).use(head).mount('#app')
+createApp(App).use(createHead()).mount('#app')
 EOF
 
 # Tailwind CSS configuration
@@ -150,14 +150,14 @@ cat <<EOF > src/App.vue
     <div>
       <img src="/favicon.svg" alt="Logo" class="w-24 h-24 mx-auto mb-4">
       <h1 class="text-4xl font-bold text-indigo-600">Vercel + Vite + Vue</h1>
-      <p class="text-lg text-gray-600">A streamlined Bash script to scaffold a modern Vue 3 project with Vite, Tailwind CSS, serverless API endpoints, and a complete development setup. This template creates a production-ready project structure that works seamlessly in both local development and Vercel deployments.</p>
+      <p class="text-lg text-gray-600">A streamlined Bash script to scaffold a modern Vue 3 project with Vite, Tailwind CSS, serverless API endpoints, and a complete development setup.</p>
     </div>
     <div class="space-y-4">
       <button
         @click="loadMessage"
         class="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition"
       >
-        Call API
+        Call Test API
       </button>
       <p v-if="message" class="text-gray-700">{{ message }}</p>
     </div>
@@ -172,7 +172,7 @@ cat <<EOF > src/App.vue
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { useHead } from '@vueuse/head'
+import { useHead } from '@unhead/vue'
 
 useHead({
   title: 'Vercel + Vite + Vue',
@@ -317,13 +317,13 @@ EOR
     <div>
       <img src="/favicon.svg" alt="Logo" class="w-24 h-24 mx-auto mb-4">
       <h1 class="text-4xl font-bold text-indigo-600">Vercel + Vite + Vue</h1>
-      <p class="text-lg text-gray-600">A streamlined Bash script to scaffold a modern Vue 3 project with Vite, Tailwind CSS, serverless API endpoints, and a complete development setup. This template creates a production-ready project structure that works seamlessly in both local development and Vercel deployments.</p>
+      <p class="text-lg text-gray-600">A streamlined Bash script to scaffold a modern Vue 3 project with Vite, Tailwind CSS, serverless API endpoints, and a complete development setup.</p>
     </div>
     <button
       @click="loadMessage"
       class="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition"
     >
-      Call API
+      Call Test API
     </button>
     <p v-if="message" class="text-gray-700">{{ message }}</p>
   </div>
