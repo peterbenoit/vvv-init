@@ -417,7 +417,7 @@ fi
 echo "🐶 Setting up Husky pre-commit hook..."
 yes | npx husky-init
 npm install
-npx husky set .husky/pre-commit "npx prettier --check ."
+npx husky set .husky/pre-commit "npx prettier --write ."
 echo "✅ Husky pre-commit hook created (Prettier check)"
 
 #-------------------------------------------------------------------------------
