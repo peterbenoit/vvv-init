@@ -58,17 +58,18 @@ fi
 #-------------------------------------------------------------------------------
 # Create main project files
 #-------------------------------------------------------------------------------
-# HTML entry point
+
+# Vite-compatible HTML entry point
 cat <<EOF > index.html
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vercel + Vite + Vue</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
-  <body class="bg-gray-100 text-gray-800 min-h-screen flex items-center justify-center">
+  <body>
     <div id="app"></div>
     <script type="module" src="/src/main.js"></script>
   </body>
@@ -267,12 +268,11 @@ EOF
 #-------------------------------------------------------------------------------
 # Create configuration files
 #-------------------------------------------------------------------------------
-# Vercel configuration with SPA fallback
+# Vercel configuration with only API rewrites (no SPA fallback)
 cat <<EOF > vercel.json
 {
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/\$1" },
-    { "source": "/(.*)", "destination": "/" }
+    { "source": "/api/(.*)", "destination": "/api/\$1" }
   ]
 }
 EOF
