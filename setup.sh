@@ -1,4 +1,8 @@
 #!/bin/bash
+if [ -z "$BASH_VERSION" ]; then
+  echo "❌ Please run this script using 'bash', not 'sh'."
+  exit 1
+fi
 #===============================================================================
 # Vercel + Vite + Vue Setup Script
 # Creates a modern Vue 3 project with Vite, Tailwind CSS, and serverless API
@@ -422,6 +426,17 @@ npx husky set .husky/pre-commit "npx prettier --write ."
 echo "✅ Husky pre-commit hook created (Prettier check)"
 
 #-------------------------------------------------------------------------------
+# Move setup.sh to /scripts for cleanliness
+#-------------------------------------------------------------------------------
+script_path="$(realpath "${BASH_SOURCE[0]}")"
+mkdir -p scripts
+mv -- "$script_path" scripts/setup.sh
+echo "📁 Moved setup.sh to /scripts/"
+
+echo "🎉 Setup complete! Your Vercel + Vite + Vue project is ready."
+echo "📖 Check the README for more information on how to use this project."
+
+#-------------------------------------------------------------------------------
 # Finish and start dev server
 #-------------------------------------------------------------------------------
 echo "✅ Project ready."
@@ -431,6 +446,3 @@ dev_confirm=${dev_confirm:-Y}
 if [[ "$dev_confirm" =~ ^[Yy]$ ]]; then
   npx vercel dev
 fi
-
-echo "🎉 Setup complete! Your Vercel + Vite + Vue project is ready."
-echo "📖 Check the README for more information on how to use this project."
