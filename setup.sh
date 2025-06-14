@@ -126,6 +126,13 @@ EOF
 #-------------------------------------------------------------------------------
 mkdir -p public
 
+# robots.txt for bot rejection and static data recommendations
+cat <<EOF > public/robots.txt
+User-agent: *
+Disallow: /api/
+Disallow: /src/
+EOF
+
 # Favicon SVG
 cat <<EOF > public/favicon.svg
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="256" height="256" viewBox="0 0 256 256" xml:space="preserve">
@@ -226,25 +233,32 @@ EOF
 #-------------------------------------------------------------------------------
 mkdir -p api
 
-# Example API endpoint
+# Example API endpoint with referer check and improved headers
 cat <<EOF > api/hello.js
 import axios from 'axios';
 
 export default async function handler(req, res) {
+  const referer = req.headers.referer || '';
+  if (!referer.startsWith('https://') && !referer.startsWith('http://')) {
+    res.statusCode = 403;
+    return res.end(JSON.stringify({ error: 'Access denied' }));
+  }
+
   try {
     console.log('Backend var:', process.env.PRIVATE_BACKEND_SECRET);
     const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
     const posts = response.data.slice(0, 10);
     const random = posts[Math.floor(Math.random() * posts.length)];
-    res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(
-      JSON.stringify({
-        message: random.title,
-        backendSecret: process.env.PRIVATE_BACKEND_SECRET,
-      })
-    );
+
+    res.setHeader('Content-Type', 'application/json');
+    res.setHeader('Cache-Control', 'public, max-age=300, stale-while-revalidate=60');
+    res.end(JSON.stringify({
+      message: random.title,
+      backendSecret: process.env.PRIVATE_BACKEND_SECRET,
+    }));
   } catch (error) {
-    res.writeHead(500, { 'Content-Type': 'application/json' });
+    res.statusCode = 500;
+    res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify({ error: 'Failed to fetch data' }));
   }
 }
@@ -253,11 +267,12 @@ EOF
 #-------------------------------------------------------------------------------
 # Create configuration files
 #-------------------------------------------------------------------------------
-# Vercel configuration
+# Vercel configuration with SPA fallback
 cat <<EOF > vercel.json
 {
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/\$1" }
+    { "source": "/api/(.*)", "destination": "/api/\$1" },
+    { "source": "/(.*)", "destination": "/" }
   ]
 }
 EOF
