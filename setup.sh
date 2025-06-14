@@ -1,8 +1,26 @@
 #!/bin/bash
+
 if [ -z "$BASH_VERSION" ]; then
   echo "❌ Please run this script using 'bash', not 'sh'."
   exit 1
 fi
+
+#-------------------------------------------------------------------------------
+# Check for required commands
+#-------------------------------------------------------------------------------
+for cmd in node npm npx git vercel realpath; do
+  if ! command -v $cmd &>/dev/null; then
+    echo "❌ Required command '$cmd' is not installed or not in PATH."
+    echo "ℹ️  Please install it before running this script."
+    missing_cmd=true
+  fi
+done
+
+if [ "$missing_cmd" = true ]; then
+  echo "🛑 Aborting setup due to missing dependencies."
+  exit 1
+fi
+
 #===============================================================================
 # Vercel + Vite + Vue Setup Script
 # Creates a modern Vue 3 project with Vite, Tailwind CSS, and serverless API
