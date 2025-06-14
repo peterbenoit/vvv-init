@@ -69,7 +69,7 @@ cat <<EOF > index.html
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vercel + Vite + Vue</title>
   </head>
-  <body>
+  <body class="bg-gray-100 text-gray-800 min-h-screen flex items-center justify-center">
     <div id="app"></div>
     <script type="module" src="/src/main.js"></script>
   </body>
