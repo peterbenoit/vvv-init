@@ -1,5 +1,10 @@
 #!/bin/bash
 
+#===============================================================================
+# Vercel + Vite + Vue Setup Script
+# Creates a modern Vue 3 project with Vite, Tailwind CSS, and serverless API
+#===============================================================================
+
 if [ -z "$BASH_VERSION" ]; then
   echo "❌ Please run this script using 'bash', not 'sh'."
   exit 1
@@ -20,11 +25,6 @@ if [ "$missing_cmd" = true ]; then
   echo "🛑 Aborting setup due to missing dependencies."
   exit 1
 fi
-
-#===============================================================================
-# Vercel + Vite + Vue Setup Script
-# Creates a modern Vue 3 project with Vite, Tailwind CSS, and serverless API
-#===============================================================================
 
 #-------------------------------------------------------------------------------
 # Safety check - prevent running inside the template repository
