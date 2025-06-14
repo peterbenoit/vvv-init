@@ -244,6 +244,8 @@ dist/
 .vscode/
 .env
 .vercel/
+.DS_Store
+package-lock.json
 EOF
 
 # Environment variables
