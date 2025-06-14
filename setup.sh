@@ -88,6 +88,7 @@ EOF
 # Package configuration
 cat <<EOF > package.json
 {
+  "type": "module",
   "name": "vercel-vite-vue-api",
   "scripts": {
     "dev": "vite",
@@ -227,22 +228,24 @@ mkdir -p api
 
 # Example API endpoint
 cat <<EOF > api/hello.js
-import axios from 'axios'
+import axios from 'axios';
 
 export default async function handler(req, res) {
   try {
-    console.log('Backend var:', process.env.PRIVATE_BACKEND_SECRET)
-    const response = await axios.get('https://jsonplaceholder.typicode.com/posts')
-    const posts = response.data.slice(0, 10)
-    const random = posts[Math.floor(Math.random() * posts.length)]
-    res.writeHead(200, { 'Content-Type': 'application/json' })
-    res.end(JSON.stringify({
-      message: random.title,
-      backendSecret: process.env.PRIVATE_BACKEND_SECRET
-    }))
+    console.log('Backend var:', process.env.PRIVATE_BACKEND_SECRET);
+    const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
+    const posts = response.data.slice(0, 10);
+    const random = posts[Math.floor(Math.random() * posts.length)];
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(
+      JSON.stringify({
+        message: random.title,
+        backendSecret: process.env.PRIVATE_BACKEND_SECRET,
+      })
+    );
   } catch (error) {
-    res.writeHead(500, { 'Content-Type': 'application/json' })
-    res.end(JSON.stringify({ error: 'Failed to fetch data' }))
+    res.writeHead(500, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ error: 'Failed to fetch data' }));
   }
 }
 EOF
