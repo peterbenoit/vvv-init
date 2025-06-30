@@ -161,11 +161,10 @@ cat <<EOF > src/main.js
 import { createApp } from 'vue'
 import App from './App.vue'
 import './style.css'
-import router from './router'
 import { createHead } from '@unhead/vue'
 
 const head = createHead()
-createApp(App).use(router).use(head).mount('#app')
+createApp(App).use(head).mount('#app')
 EOF
 
 # Tailwind CSS configuration
@@ -407,6 +406,16 @@ EOH
 EOA
 
   # Update main.js to include router
+  cat <<EOF > src/main.js
+import { createApp } from 'vue'
+import App from './App.vue'
+import './style.css'
+import router from './router'
+import { createHead } from '@unhead/vue'
+
+const head = createHead()
+createApp(App).use(router).use(head).mount('#app')
+EOF
 
   # Update App.vue to use router
   cat <<EOAPP > src/App.vue
