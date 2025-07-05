@@ -467,7 +467,18 @@ fi
 echo "🐶 Setting up Husky pre-commit hook..."
 yes | npx husky-init
 npm install
-npx husky set .husky/pre-commit "npx prettier --write ."
+# Ensure Husky is installed and .husky directory exists
+npx husky install
+# Create or overwrite the pre-commit hook with formatting and staging
+cat <<EOF > .husky/pre-commit
+#!/usr/bin/env sh
+. "\$(dirname -- "\$0")/_/husky.sh"
+
+npx prettier --write .
+git add .
+EOF
+
+chmod +x .husky/pre-commit
 echo "✅ Husky pre-commit hook created (Prettier check)"
 
 #-------------------------------------------------------------------------------
